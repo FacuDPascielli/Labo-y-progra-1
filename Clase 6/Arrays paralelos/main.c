@@ -1,22 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define TAM 3
+#define TAM 5
 
 void mostrarAlumnos(int leg[], int ed[], char sex[], int n1[], int n2[], float prom[], int tam);
 void mostrarAlumno(int leg, int ed, char sex, int n1, int n2, float prom);
 void ordenarVectorInt(int vec[], int tam, int criterio);
 void ordenarAlumnosXLegajo(int leg[], int ed[], char sex[], int n1[], int n2[], float prom[], int tam, int criterio);
+void ordenarAlumnosSexLeg( int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam);
 
 int main()
 {
-    int legajos[TAM];
-    int edades[TAM];
-    char sexos[TAM];
-    int notaP1[TAM];
-    int notaP2[TAM];
-    float promedios[TAM];
-
+    int legajos[TAM] = {4, 2, 6, 7, 3};
+    int edades[TAM] = {18, 19,20,21,22};
+    char sexos[TAM] = {'f','m','f','m','f'};
+    int notaP1[TAM] = {4, 2, 6, 7, 3};
+    int notaP2[TAM] = {4, 2, 6, 7, 3};
+    float promedios[TAM] = {4, 2, 6, 7, 3};
+/*
     for(int i = 0; i < TAM; i++)
         {
             printf("\n\nIngrese legajo: ");
@@ -63,7 +64,10 @@ int main()
 
             promedios[i] = (float) (notaP1[i] + notaP2[i]) /2;
         }
+        */
     ordenarAlumnosXLegajo(legajos, edades, sexos, notaP1, notaP2, promedios, TAM, 0);
+    mostrarAlumnos(legajos, edades, sexos, notaP1, notaP2, promedios, TAM);
+    ordenarAlumnosSexLeg(legajos, edades, sexos, notaP1, notaP2, promedios, TAM);
     mostrarAlumnos(legajos, edades, sexos, notaP1, notaP2, promedios, TAM);
 
     return 0;
@@ -81,12 +85,15 @@ void mostrarAlumnos(int leg[], int ed[], char sex[], int n1[], int n2[], float p
 
 void mostrarAlumno(int leg, int ed, char sex, int n1, int n2, float prom)
 {
-    printf("%d  %d  %c  %d  %d  %.2f\n", leg, ed, sex, n1, n2, prom);
+    printf("  %d  %d  %c  %d  %d  %.2f\n", leg, ed, sex, n1, n2, prom);
 }
 
 void ordenarAlumnosXLegajo(int leg[], int ed[], char sex[], int n1[], int n2[], float prom[], int tam, int criterio)
 {
-    int aux;
+    int auxInt;
+    char auxChar;
+    float auxFloat;
+    int swap;
 
     for(int i = 0; i < tam-1; i++)
         {
@@ -96,61 +103,92 @@ void ordenarAlumnosXLegajo(int leg[], int ed[], char sex[], int n1[], int n2[], 
                         {
                             if(leg[j] < leg[i])
                             {
-                                aux = leg[j];
-                                leg[j] = leg[i];
-                                leg[i] = aux;
-
-                                aux = ed[j];
-                                ed[j] = ed[i];
-                                ed[i] = aux;
-
-                                aux = sex[j];
-                                sex[j] = sex[i];
-                                sex[i] = aux;
-
-                                aux = n1[j];
-                                n1[j] = n1[i];
-                                n1[i] = aux;
-
-                                aux = n2[j];
-                                n2[j] = n2[i];
-                                n2[i] = aux;
-
-                                aux = prom[j];
-                                prom[j] = prom[i];
-                                prom[i] = aux;
+                                swap = 1;
 
                             }
-                        }else
-                        {
-                            if(leg[j] > leg[i])
+                        }else if(leg[j] > leg[i])
                             {
-                                aux = leg[j];
-                                leg[j] = leg[i];
-                                leg[i] = aux;
-
-                                aux = ed[j];
-                                ed[j] = ed[i];
-                                ed[i] = aux;
-
-                                aux = sex[j];
-                                sex[j] = sex[i];
-                                sex[i] = aux;
-
-                                aux = n1[j];
-                                n1[j] = n1[i];
-                                n1[i] = aux;
-
-                                aux = n2[j];
-                                n2[j] = n2[i];
-                                n2[i] = aux;
-
-                                aux = prom[j];
-                                prom[j] = prom[i];
-                                prom[i] = aux;
+                                swap = 1;
                             }
+                    if(swap)
+                        {
+                                auxInt = leg[j];
+                                leg[j] = leg[i];
+                                leg[i] = auxInt;
+
+                                auxInt = ed[j];
+                                ed[j] = ed[i];
+                                ed[i] = auxInt;
+
+                                auxChar = sex[j];
+                                sex[j] = sex[i];
+                                sex[i] = auxChar;
+
+                                auxInt = n1[j];
+                                n1[j] = n1[i];
+                                n1[i] = auxInt;
+
+                                auxInt = n2[j];
+                                n2[j] = n2[i];
+                                n2[i] = auxInt;
+
+                                auxFloat = prom[j];
+                                prom[j] = prom[i];
+                                prom[i] = auxFloat;
                         }
+
+                        swap = 0;
 
                 }
         }
+}
+
+void ordenarAlumnosSexLeg( int leg[], int age[], char sex[], int n1[], int n2[], float prom[], int tam){
+
+    int auxInt;
+    float auxFloat;
+    char auxChar;
+    int swap = 0;
+
+    for(int i=0; i < tam-1; i++){
+        for(int j = i +1; j < tam; j++){
+
+            if( sex[i] > sex[j]){
+                    swap = 1;
+            }
+            else if( sex[i] == sex[j] && leg[i] > leg[j]){
+
+                    swap = 1;
+            }
+
+            if( swap ){
+
+                auxInt = leg[i];
+                leg[i] = leg[j];
+                leg[j] = auxInt;
+
+                auxInt = age[i];
+                age[i] = age[j];
+                age[j] = auxInt;
+
+                auxChar = sex[i];
+                 sex[i] = sex[j];
+                 sex[j] = auxChar;
+
+                auxInt = n1[i];
+                 n1[i] = n1[j];
+                 n1[j] = auxInt;
+
+                auxInt = n2[i];
+                 n2[i] = n2[j];
+                 n2[j] = auxInt;
+
+              auxFloat = prom[i];
+               prom[i] = prom[j];
+               prom[j] = auxFloat;
+            }
+
+            swap = 0;
+        }
+    }
 }

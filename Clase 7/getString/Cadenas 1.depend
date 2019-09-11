@@ -1,0 +1,11 @@
+# depslib dependency file v1.0
+1568209512 source:c:\users\alumno\desktop\labo-y-progra-1\clase 7\cadenas 1\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
+1568209512 source:c:\users\alumno\desktop\labo-y-progra-1\clase 7\getstring\main.c
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+
