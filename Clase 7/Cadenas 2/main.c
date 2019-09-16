@@ -7,15 +7,15 @@ void ordenarMatChar(char mat[][20], int tam);
 
 int main()
 {
-    char nombres[5][20];
-
+    char nombres[5][20] = {"Juan", "Alicia", "Ernesto", "Alvaro", "Sofia"};
+/*
     for(int i = 0; i < 5; i++)
     {
         printf("Ingrese un nombre: ");
         fflush(stdin);
         gets(nombres[i]);
     }
-
+*/
     printf("\n\n");
 
     printf("Nombres sin ordenar: \n");
@@ -43,7 +43,7 @@ void ordenarMatChar(char mat[][20], int tam)
     {
         for(int j = i + 1; j < tam; j++)
         {
-            if(strcmp(mat[i], mat[j]) == 1)
+            if(strcmp(mat[i], mat[j]) == 1)//Si pusiera "> 0" se ordenaría de mayor a menor.
             {
                 strcpy(aux, mat[j]);
                 strcpy(mat[j], mat[i]);
